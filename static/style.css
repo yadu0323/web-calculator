@@ -1,0 +1,58 @@
+body {
+    background: #111;
+    font-family: Arial;
+}
+
+.phone {
+    width: 280px;
+    margin: 60px auto;
+    background: black;
+    padding: 15px;
+    border-radius: 20px;
+}
+
+.screen {
+    height: 60px;
+    background: #222;
+    color: white;
+    font-size: 32px;
+    text-align: right;
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 15px;
+}
+
+.buttons {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+}
+
+button {
+    height: 55px;
+    font-size: 20px;
+    border: none;
+    border-radius: 50%;
+    background: #333;
+    color: white;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #555;
+}
+
+.op {
+    background: orange;
+    color: white;
+}
+
+.equal {
+    background: green;
+    color: white;
+}
+
+.zero {
+    grid-column: span 2;
+    border-radius: 30px;
+}

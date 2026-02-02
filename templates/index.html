@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Calculator</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<div class="phone">
+    <div id="screen" class="screen">0</div>
+
+    <div class="buttons">
+        <button class="op" onclick="clearScreen()">C</button>
+        <button class="op" onclick="setOp('/')">÷</button>
+        <button class="op" onclick="setOp('*')">×</button>
+        <button class="op" onclick="setOp('-')">−</button>
+
+        <button onclick="addNum(7)">7</button>
+        <button onclick="addNum(8)">8</button>
+        <button onclick="addNum(9)">9</button>
+        <button class="op" onclick="setOp('+')">+</button>
+
+        <button onclick="addNum(4)">4</button>
+        <button onclick="addNum(5)">5</button>
+        <button onclick="addNum(6)">6</button>
+
+        <button onclick="addNum(1)">1</button>
+        <button onclick="addNum(2)">2</button>
+        <button onclick="addNum(3)">3</button>
+
+        <button class="zero" onclick="addNum(0)">0</button>
+        <button class="equal" onclick="calculate()">=</button>
+    </div>
+</div>
+
+<script>
+const screen = document.getElementById("screen");
+let first = "", second = "", operator = "";
+
+function addNum(num) {
+    if (operator === "") {
+        first += num;
+        screen.innerText = first;
+    } else {
+        second += num;
+        screen.innerText = second;
+    }
+}
+
+function setOp(op) {
+    if (first !== "") operator = op;
+}
+
+function clearScreen() {
+    first = "";
+    second = "";
+    operator = "";
+    screen.innerText = "0";
+}
+
+function calculate() {
+    if (!first || !second || !operator) return;
+
+    fetch("/calculate", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({ a: first, b: second, op: operator })
+    })
+    .then(r => r.json())
+    .then(data => {
+        screen.innerText = data.result;
+        first = data.result.toString();
+        second = "";
+        operator = "";
+    });
+}
+</script>
+
+</body>
+</html>
